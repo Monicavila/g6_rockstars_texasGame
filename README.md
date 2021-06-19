@@ -6,8 +6,11 @@ Table open with 5 cards, 2 flipped down and 3 are open, is your choice HOLD or W
 
 The hand are two cards
 
-![ScreenShot](https://raw.github.com/mavila/g6_rockstars_texasGame/main/https://github.com/Monicavila/g6_rockstars_texasGame/1a4920ac82a1af8826393df0a5aac673854a5eed/Screen Shot 2021-06-18 at 23.33.57.png)
+![ScreenShot](https://github.com/Monicavila/g6_rockstars_texasGame/blob/b5f4a55b58007972d038af9ac40add91717f32b8/public/images/Screen%20Shot%202021-06-18%20at%2023.33.57.png)
      
 Art Copyrights:
+
      https://dribbble.com/shots/4949840-USPS-pt-X/attachments/1109544
+     
      https://www.kickstarter.com/projects/bonafideplayingcards/nouveau-bijoux-playing-cards/description
+    
