@@ -51,7 +51,7 @@ body {
   
   .card[symbol="♦"],
   .card[symbol="♥"] {
-    color: red;
+    color: rgb(231, 58, 27);
   }
   
   .card-corner {
@@ -78,7 +78,7 @@ body {
   
   .symbols div {
     position: absolute;
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .card[number='2'] .symbols div {
@@ -106,7 +106,6 @@ body {
   
   .card[number='3'] .symbols div:nth-child(2),
   .card[number='5'] .symbols div:nth-child(5),
-  .card[number='9'] .symbols div:nth-child(9),
   .card[number='A'] .symbols div:nth-child(1) {
     left: 50%;
     top: 50%;
@@ -206,13 +205,14 @@ body {
   .card[number='7'] .symbols div:nth-child(3),
   .card[number='7'] .symbols div:nth-child(4),
   .card[number='8'] .symbols div:nth-child(3),
-  .card[number='8'] .symbols div:nth-child(4)  {
+  .card[number='8'] .symbols div:nth-child(4) {
     top: 50%;
     transform: translateY(-50%);
   }
 
   .card[number='7'] .symbols div:nth-child(7),
   .card[number='8'] .symbols div:nth-child(7),
+  .card[number='9'] .symbols div:nth-child(9),
   .card[number='10'] .symbols div:nth-child(9) {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -247,6 +247,9 @@ body {
     transform: rotate(0.5turn);
   }
 
+  .card[number='9'] .symbols div:nth-child(9) {
+    top: 78px;
+  }
   .card[number='10'] .symbols div:nth-child(9) {
     top: 50px;
   }
@@ -261,7 +264,7 @@ body {
   }
 
   .card[number='A'] .symbols div:nth-child(1) {
-    font-size: 90px;
+    font-size: 68px;
   }
 
   .card .symbols div.image {

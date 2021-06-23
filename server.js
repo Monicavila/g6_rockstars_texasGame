@@ -1,14 +1,21 @@
-const { red } = require('color-name');
+//const { red } = require('color-name');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 app.use(express.static('public'));
+app.use(cors());
 
 const { Deck, Hand } = require('./app/deck');
 
 const deck = new Deck();
 
 let table = deck.dispatchCardsOnce(5);
+
+app.get('/all', (req, res) => {
+  const all = new Deck();
+  res.send(all.cards);
+});
 
 app.get('/table', (req, res) => {
   res.send(table);

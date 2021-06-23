@@ -1,70 +1,68 @@
 const createCardCorner = (number, symbol) => {
-    return `<div class="card-corner">
+  return `<div class="card-corner">
                 <div>${number}</div>
                 <div>${symbol}</div>
-            </div>`
-} 
+            </div>`;
+};
 
 const createCardSymbols = (number, symbol) => {
-    const isNumber = !isNaN(number); 
+  let symbols = "";
+  const isNumber = !isNaN(number);
 
-    if(number === 'A') {
-        return (`<div>${symbol}</div>`);
-    }
+  if (number === "A") {
+    symbols = `<div>${symbol}</div>`;
+  }
 
-    if(number === 'J' || number === 'Q' || number === 'K') {
-        return(`<div class='image'></div>`)
-    }
+  if (number === "J" || number === "Q" || number === "K") {
+    symbols = `<div class='image'></div>`;
+  }
 
-    if (isNumber) {
-        return `${new Array(parseInt(number))
-        .fill(symbol)
-        .map((cardSymbol) => `<div>${cardSymbol}</div>`)
-        .join('')
-        }`; 
-    }
-    //return '';
-    return `<div class="symbols">${symbols}</div>`;
-}
+  if (isNumber) {
+    symbols = `${new Array(parseInt(number))
+      .fill(symbol)
+      .map((cardSymbol) => `<div>${cardSymbol}</div>`)
+      .join("")}`;
+  }
+  //return '';
+  return `<div class="symbols">${symbols}</div>`;
+};
 
 const createCardFront = (content) => {
-    return `<div class="front">${content}</div>`;
-}
+  return `<div class="front">${content}</div>`;
+};
 
 const createCardBack = () => {
-    return `<div class="back"></div>`;
-}
+  return `<div class="back"></div>`;
+};
 
 const createCardDiv = (attibutes) => {
-    const cardDiv = document.createElement('div');
+  const cardDiv = document.createElement("div");
 
-    cardDiv.classList.add('card');
-    Object.entries(attibutes).forEach(([key, value]) => {
-        cardDiv.setAttribute(key, value);
-    });
-    return cardDiv;
-}
+  cardDiv.classList.add("card");
+  Object.entries(attibutes).forEach(([key, value]) => {
+    cardDiv.setAttribute(key, value);
+  });
+  return cardDiv;
+};
 
 const createCard = (card, flipped) => {
-    const number = card.slice(0, -1);
-    const symbol = card.slice(-1);
-    const cardDiv = createCardDiv({symbol, number});       
+  const number = card.slice(0, -1);
+  const symbol = card.slice(-1);
+  const cardDiv = createCardDiv({ symbol, number });
 
-    //const cardDiv = document.createElement('div');
-    
-    cardDiv.innerHTML =`
+  //const cardDiv = document.createElement('div');
+
+  cardDiv.innerHTML = `
     <div class="container">
         ${createCardFront(`
             ${createCardCorner(number, symbol)}
-            <div class="symbols">
-                ${createCardSymbols(number, symbol)}
-            </div>
+            ${createCardSymbols(number, symbol)}
             ${createCardCorner(number, symbol)}
         `)}           
         ${createCardBack()}
     </div>
     `;
-    /*cardDiv.classList.add('card');
+  /*cardDiv.classList.add('card');
     cardDiv.setAttribute('symbol', symbol);
     cardDiv.setAttribute('number', number);
 
@@ -73,58 +71,61 @@ const createCard = (card, flipped) => {
                             ${createCardSymbols(number, symbol)}
                         </div>
                         ${createCardCorner(number, symbol)}`;*/
-    
-    cardDiv.addEventListener('click', () => {
-        //console.log(`card${number} ${symbol} has been clicked`)
-        if(cardDiv.classList.contains('flipped')) {
-            cardDiv.classList.remove('flipped');
-        }else{
-            cardDiv.classList.add('flipped');
-        }
-    });
 
-    if (flipped) {
-        cardDiv.classList.add('flipped');
+  cardDiv.addEventListener("click", () => {
+    //console.log(`card${number} ${symbol} has been clicked`)
+    if (cardDiv.classList.contains("flipped")) {
+      cardDiv.classList.remove("flipped");
+    } else {
+      cardDiv.classList.add("flipped");
     }
+  });
 
-    return cardDiv;
-}
+  if (flipped) {
+    cardDiv.classList.add("flipped");
+  }
 
-const createDeck =  async (selector, path, flipped) => {
-    const container = document.querySelector(selector);
-    const cards = await (await fetch(path)).json();
-    cards.forEach((card, index) => container.append(createCard(card, (index < flipped))));
-}
+  return cardDiv;
+};
+
+const createDeck = async (selector, path, flipped) => {
+  const container = document.querySelector(selector);
+  const cards = await (await fetch(path)).json();
+  cards.forEach((card, index) =>
+    container.append(createCard(card, index < flipped))
+  );
+};
 
 const onClickElementById = (id, callback) => {
-    document.getElementById(id).addEventListener('click', callback);
-}
+  document.getElementById(id).addEventListener("click", callback);
+};
 
-window.addEventListener('load', function() {
-    //const container = document.querySelector('.deck.hand');
-    //const containerWidow = document.querySelector('.deck.widow')
-    (async () => {
-        //const deck = await (await fetch('/deck')).json();
-        //const deck = await fetch('/deck');
-        //const container = document.querySelector('.deck');
-        await createDeck('.deck.table', '/table', 2)
-        const cardSize = 2;
-        await createDeck('.deck.hand',`/deck/${cardSize}`, cardSize)
-        //deck.forEach((card) => {
-            //container.append(createCard(card));
-        onClickElementById('flip-cards', () => {
-            document.querySelectorAll('.deck.hand .card').forEach((element, index) => {
-                setTimeout(() => {
-                    element.classList.remove('flipped');
-                }, (500 * (index)));
-            });
+window.addEventListener("load", function () {
+  //const container = document.querySelector('.deck.hand');
+  //const containerWidow = document.querySelector('.deck.widow')
+  (async () => {
+    //const deck = await (await fetch('/deck')).json();
+    //const deck = await fetch('/deck');
+    //const container = document.querySelector('.deck');
+    await createDeck(".deck.table", "/table", 2);
+    const cardSize = 2;
+    await createDeck(".deck.hand", `/deck/${cardSize}`, cardSize);
+    //deck.forEach((card) => {
+    //container.append(createCard(card));
+    onClickElementById("flip-cards", () => {
+      document
+        .querySelectorAll(".deck.hand .card")
+        .forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.remove("flipped");
+          }, 500 * index);
         });
-        onClickElementById('button-hold', () => {
-            console.log('HOLD')
-        });
-        onClickElementById('button-withdraw', () => {
-            console.log('WITHDRAW')
-        });
-    })();
+    });
+    onClickElementById("button-hold", () => {
+      console.log("HOLD");
+    });
+    onClickElementById("button-withdraw", () => {
+      console.log("WITHDRAW");
+    });
+  })();
 });
-
